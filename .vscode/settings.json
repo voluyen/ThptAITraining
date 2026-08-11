@@ -1,0 +1,49 @@
+{
+  // ===== LaTeX Workshop: bien dich slide Beamer bang XeLaTeX =====
+
+  // Dinh nghia cong cu bien dich
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ],
+      "env": {}
+    }
+  ],
+
+  // Cong thuc build: chay xelatex 2 lan de muc luc / navigation dung
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "XeLaTeX x2",
+      "tools": ["xelatex", "xelatex"]
+    }
+  ],
+
+  // Tu dong build moi khi luu file
+  "latex-workshop.latex.autoBuild.run": "onSave",
+
+  // Mo PDF ngay trong tab cua VS Code (tranh bi khoa file boi trinh xem ngoai)
+  "latex-workshop.view.pdf.viewer": "tab",
+
+  // Tu dong xoa file tam sau khi build xong
+  "latex-workshop.latex.autoClean.onBuilt": true,
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.log",
+    "*.out",
+    "*.toc",
+    "*.nav",
+    "*.snm",
+    "*.vrb",
+    "*.fls",
+    "*.fdb_latexmk",
+    "*.synctex.gz",
+    "*.bbl",
+    "*.blg"
+  ]
+}
