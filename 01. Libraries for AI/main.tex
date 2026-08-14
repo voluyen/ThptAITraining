@@ -9,11 +9,17 @@
 \usetikzlibrary{shapes.symbols, shapes.arrows, positioning, arrows.meta,
                 decorations.pathreplacing, fit, backgrounds}
 
-% Font chinh: Arial (Windows/macOS deu co), du hien thi tieng Viet
-\IfFontExistsTF{Arial}{\setmainfont{Arial}}{\setmainfont{DejaVu Sans}}
-% Font code: Consolas tren Windows, Menlo tren macOS
-\IfFontExistsTF{Consolas}{\setmonofont{Consolas}}{%
-  \IfFontExistsTF{Menlo}{\setmonofont{Menlo}}{\setmonofont{DejaVu Sans Mono}}}
+% Font chinh: Arial - co san tren ca Windows lan macOS, du dau tieng Viet
+\setmainfont{Arial}
+% Font code: DejaVu Sans Mono lay tu chinh TeX Live (goi "dejavu"),
+% nen may nao cai TeX cung tim thay - khong phu thuoc font he thong.
+%   Muon dung Consolas (chi co tren Windows) thi thay 5 dong duoi bang:
+%   \setmonofont{Consolas}
+% LUU Y: DejaVu Sans Mono thieu vai chu tieng Viet co dau (o, e, ...),
+% vi vay khong go tieng Viet co dau trong \texttt{} va trong lstlisting.
+\setmonofont{DejaVuSansMono}[
+  Extension=.ttf, UprightFont=*, BoldFont=*-Bold,
+  ItalicFont=*-Oblique, BoldItalicFont=*-BoldOblique]
 
 \definecolor{codebg}{RGB}{245,245,245}
 % Mau cho cac so do minh hoa
