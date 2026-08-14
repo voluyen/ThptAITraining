@@ -94,7 +94,7 @@ Nếu dùng \texttt{list} của Python thuần và vòng lặp \texttt{for} đ�
 Chương trình chạy \textbf{rất chậm}. Với hàng triệu con số, thứ đáng lẽ chạy trong vài giây có thể mất hàng phút, thậm chí hàng giờ.
 \end{alertblock}
 \pause
-\begin{block}{Lời giải}
+\begin{block}{Hướng giải quyết}
 Ta cần một công cụ chuyên để chứa và tính toán trên \textbf{cả một khối số cùng lúc} --- đó chính là \textbf{NumPy}.
 \end{block}
 \end{frame}
@@ -132,7 +132,7 @@ list_a = list(range(n))
 arr_a  = np.arange(n)
 
 t0 = time.time()
-tong1 = sum(x * x for x in list_a)   # Python thuan
+tong1 = sum(x * x for x in list_a)   # pure Python
 t1 = time.time()
 tong2 = np.sum(arr_a * arr_a)        # NumPy
 t2 = time.time()
@@ -199,7 +199,7 @@ Hàm toán học      & Phải tự viết         & Có sẵn hàng trăm hàm 
 \hline
 \end{tabular}
 \end{center}
-\begin{alertblock}{Ghi nhớ}
+\begin{alertblock}{Tóm lại}
 List dùng để chứa \textbf{mọi thứ}. NumPy array dùng để \textbf{tính toán trên số}.
 \end{alertblock}
 \end{frame}
@@ -218,7 +218,7 @@ Với Google Colab hoặc Anaconda: NumPy đã được cài sẵn.
 \begin{lstlisting}
 import numpy as np
 
-print(np.__version__)   # kiem tra phien ban
+print(np.__version__)   # check the installed version
 \end{lstlisting}
 \begin{block}{\texttt{as np} nghĩa là gì?}
 \texttt{as} đặt cho thư viện một \textbf{tên gọi tắt} (tiếng Anh: \textit{alias}).
@@ -235,7 +235,7 @@ a = np.array([1, 2, 3, 4, 5])
 print(a)          # [1 2 3 4 5]
 print(type(a))    # <class 'numpy.ndarray'>
 
-# Phep toan tac dong len TOAN BO mang
+# one operation applies to the WHOLE array
 print(a + 10)     # [11 12 13 14 15]
 print(a * 2)      # [ 2  4  6  8 10]
 print(a ** 2)     # [ 1  4  9 16 25]
@@ -295,13 +295,13 @@ Mọi dữ liệu --- ảnh, âm thanh, văn bản, bảng số --- đều đư�
 
 \begin{frame}[fragile]{Tạo mảng 2 chiều}
 \begin{lstlisting}
-diem = np.array([[8.0, 7.5, 9.0],      # hoc sinh 1
-                 [6.5, 8.0, 7.0],      # hoc sinh 2
-                 [9.0, 9.5, 8.5]])     # hoc sinh 3
+diem = np.array([[8.0, 7.5, 9.0],      # student 1
+                 [6.5, 8.0, 7.0],      # student 2
+                 [9.0, 9.5, 8.5]])     # student 3
 
 print(diem)
-print(diem.shape)   # (3, 3)  -> 3 hang, 3 cot
-print(diem.ndim)    # 2       -> so chieu
+print(diem.shape)   # (3, 3)  -> 3 rows, 3 columns
+print(diem.ndim)    # 2       -> number of dimensions
 \end{lstlisting}
 \begin{itemize}
   \item Mảng 2D được tạo từ \textbf{list của các list}
@@ -315,13 +315,13 @@ print(diem.ndim)    # 2       -> so chieu
 
 \begin{frame}[fragile]{Tạo mảng từ giá trị có sẵn}
 \begin{lstlisting}
-np.zeros(shape, dtype)   # CU PHAP: hinh dang, roi kieu du lieu
+np.zeros(shape, dtype)   # SYNTAX: shape first, then dtype
 
 np.zeros(5)          # shape = 5       -> [0. 0. 0. 0. 0.]
-np.zeros((2, 3))     # shape = (2, 3)  -> ma tran 2x3 toan so 0
-np.ones((2, 3))      # ma tran 2x3 toan so 1
-np.full((2, 3), 7)   # (shape, gia tri) -> 2x3 toan so 7
-np.eye(3)            # ma tran don vi 3x3 (duong cheo = 1)
+np.zeros((2, 3))     # shape = (2, 3)  -> 2x3 matrix of 0
+np.ones((2, 3))      # 2x3 matrix of 1
+np.full((2, 3), 7)   # (shape, value)  -> 2x3 matrix of 7
+np.eye(3)            # 3x3 identity matrix (diagonal = 1)
 \end{lstlisting}
 \begin{itemize}
   \item Tham số \textbf{thứ nhất} là \texttt{shape} --- hình dạng. Nhiều chiều thì phải gói tất cả
@@ -335,13 +335,13 @@ NumPy hiểu thành \texttt{shape = 2}, \texttt{dtype = 3} --- mà 3 không ph�
 
 \begin{frame}[fragile]{Tạo dãy số: arange và linspace}
 \begin{lstlisting}
-np.arange(start, stop, step)   # dem tu start, moi lan +step
-np.linspace(start, stop, num)  # chia deu doan [start, stop]
+np.arange(start, stop, step)   # count from start, add step
+np.linspace(start, stop, num)  # split [start, stop] evenly
 
 np.arange(5)             # [0 1 2 3 4]        stop = 5
 np.arange(2, 10)         # [2 3 4 5 6 7 8 9]  start=2, stop=10
 np.arange(0, 10, 2)      # [0 2 4 6 8]        step = 2
-np.linspace(0, 1, 5)     # [0. 0.25 0.5 0.75 1.]   num = 5 so
+np.linspace(0, 1, 5)     # [0. 0.25 0.5 0.75 1.]  num = 5
 \end{lstlisting}
 \begin{center}
 \small
@@ -363,15 +363,15 @@ np.linspace(0, 1, 5)     # [0. 0.25 0.5 0.75 1.]   num = 5 so
 
 \begin{frame}[fragile]{Tạo mảng ngẫu nhiên}
 \begin{lstlisting}
-rng = np.random.default_rng(42)   # 42 la "hat giong" (seed)
+rng = np.random.default_rng(42)   # 42 is the seed
 
-rng.random(5)             # 5 so thuc ngau nhien trong [0, 1)
-rng.random((2, 3))        # ma tran 2x3 so thuc ngau nhien
-rng.integers(1, 7, 10)    # 10 so nguyen 1..6 (gieo xuc xac)
-rng.normal(0, 1, 5)      # 5 so phan phoi chuan (mean 0, std 1)
+rng.random(5)             # 5 random floats in [0, 1)
+rng.random((2, 3))        # 2x3 matrix of random floats
+rng.integers(1, 7, 10)    # 10 integers in 1..6 (dice)
+rng.normal(0, 1, 5)       # 5 values, normal(mean 0, std 1)
 \end{lstlisting}
-\begin{block}{Vì sao cần seed?}
-Đặt seed $\to$ lần chạy nào cũng cho \textbf{cùng một kết quả} $\to$ thí nghiệm AI có thể \textbf{lặp lại được} (reproducible). Đây là nguyên tắc bắt buộc khi làm nghiên cứu.
+\begin{block}{Vai trò của seed}
+Đặt seed $\to$ mọi lần chạy đều cho \textbf{cùng một kết quả} $\to$ thí nghiệm \textbf{lặp lại được} (reproducible).
 \end{block}
 \begin{itemize}
   \item Cách cũ (vẫn gặp nhiều trong tài liệu): \texttt{np.random.seed(42)} rồi \texttt{np.random.rand(5)}
@@ -404,19 +404,16 @@ a = np.array([[1, 2, 3],
 \begin{itemize}
   \item Đây là \textbf{thuộc tính}, không phải hàm $\to$ viết \texttt{a.shape}, \textbf{không} có dấu ngoặc
 \end{itemize}
-\begin{alertblock}{Thói quen tốt số 1}
-Gặp lỗi hay nghi ngờ $\to$ \texttt{print(x.shape)} \textbf{ngay lập tức}. Phần lớn lỗi khi làm việc với mảng đến từ \textbf{sai hình dạng}.
-\end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]{Kiểu dữ liệu (dtype)}
 \begin{lstlisting}
-np.array([1, 2, 3]).dtype         # int64  (Windows cu: int32)
+np.array([1, 2, 3]).dtype          # int64 (old Windows: int32)
 np.array([1.0, 2.0]).dtype         # float64
-np.array([1, 2], dtype=np.float32) # ep kieu ngay khi tao
+np.array([1, 2], dtype=np.float32) # set dtype at creation
 
 a = np.array([1.7, 2.3, 3.9])
-b = a.astype(int)      # [1 2 3] - CAT phan thap phan
+b = a.astype(int)      # [1 2 3] - TRUNCATES the decimals
 c = a.astype(np.float32)
 \end{lstlisting}
 \begin{center}
@@ -438,17 +435,16 @@ c = a.astype(np.float32)
 \begin{frame}[fragile]{Cẩn thận với kiểu số nguyên}
 \begin{lstlisting}
 a = np.array([250, 251, 252], dtype=np.uint8)
-print(a + 10)      # [4 5 6]  ??? -- TRAN SO (overflow)!
-# uint8 chi chua duoc 0..255, 260 quay vong ve 4
+print(a + 10)      # [4 5 6]  ??? -- OVERFLOW!
+# uint8 only holds 0..255, so 260 wraps around to 4
 
 b = np.array([1, 2, 3])
 b[0] = 3.9
-print(b)           # [3 2 3]  -- bi cat thanh so nguyen
+print(b)           # [3 2 3]  -- truncated to integer
 \end{lstlisting}
-\begin{alertblock}{Quy tắc an toàn khi làm AI}
-Trước khi tính toán trên ảnh, luôn đổi sang số thực:
-\texttt{img = img.astype(np.float32) / 255.0}
-\end{alertblock}
+\begin{itemize}
+  \item Cần tính toán trên số nguyên nhỏ $\to$ ép sang số thực trước: \texttt{a.astype(np.float32)}
+\end{itemize}
 \end{frame}
 
 % =====================================================================
@@ -458,13 +454,13 @@ Trước khi tính toán trên ảnh, luôn đổi sang số thực:
 \begin{lstlisting}
 a = np.array([10, 20, 30, 40, 50, 60])
 
-a[0]        # 10   phan tu dau tien
-a[-1]       # 60   phan tu cuoi cung
-a[1:4]      # [20 30 40]   tu chi so 1 den 3
-a[:3]       # [10 20 30]   3 phan tu dau
-a[3:]       # [40 50 60]   tu chi so 3 den het
-a[::2]      # [10 30 50]   cach 1 lay 1
-a[::-1]     # [60 50 40 30 20 10]   dao nguoc
+a[0]        # 10   first element
+a[-1]       # 60   last element
+a[1:4]      # [20 30 40]   index 1 up to 3
+a[:3]       # [10 20 30]   first 3 elements
+a[3:]       # [40 50 60]   from index 3 to the end
+a[::2]      # [10 30 50]   every other element
+a[::-1]     # [60 50 40 30 20 10]   reversed
 \end{lstlisting}
 \begin{itemize}
   \item Cú pháp giống hệt list của Python: \texttt{a[start : stop : step]} --- bắt đầu, kết thúc, bước nhảy
@@ -478,12 +474,12 @@ a = np.array([[ 1,  2,  3,  4],
               [ 5,  6,  7,  8],
               [ 9, 10, 11, 12]])
 
-a[1, 2]       # 7      hang 1, cot 2
-a[1][2]       # 7     cach viet cua list - cham, TRANH DUNG
-a[0]          # [1 2 3 4]        toan bo hang 0
-a[:, 1]       # [2 6 10]         toan bo cot 1
-a[0:2, 1:3]   # [[2 3], [6 7]]   mang con 2x2
-a[-1, -1]     # 12               phan tu goc duoi phai
+a[1, 2]       # 7      row 1, column 2
+a[1][2]       # 7      list style - slower, AVOID
+a[0]          # [1 2 3 4]        the whole row 0
+a[:, 1]       # [2 6 10]         the whole column 1
+a[0:2, 1:3]   # [[2 3], [6 7]]   2x2 sub-array
+a[-1, -1]     # 12               bottom-right element
 \end{lstlisting}
 \begin{block}{Cách đọc}
 Dấu phẩy ngăn cách các chiều: \texttt{a[i, j]} --- hàng \texttt{i}, cột \texttt{j}. Dấu hai chấm \texttt{:} nghĩa là "lấy tất cả".
@@ -546,16 +542,16 @@ diem = np.array([8.5, 4.0, 7.0, 9.5, 5.5, 3.0])
 
 mask = diem >= 5
 print(mask)          # [True False True True True False]
-print(diem[mask])    # [8.5 7.  9.5 5.5]   chi lay diem >= 5
-print(diem[diem >= 5])            # viet gon, rat pho bien
+print(diem[mask])    # [8.5 7.  9.5 5.5]  keeps scores >= 5
+print(diem[diem >= 5])            # short form, very common
 
-print(np.sum(diem >= 5))          # 4  - dem so hoc sinh dat
-print(np.mean(diem >= 5))         # 0.666... - ti le dat
+print(np.sum(diem >= 5))          # 4  - count of passes
+print(np.mean(diem >= 5))         # 0.666... - pass rate
 
-# Ket hop nhieu dieu kien: dung & (va), | (hoac), ~ (phu dinh)
+# combine conditions with & (and), | (or), ~ (not)
 print(diem[(diem >= 5) & (diem < 9)])   # [8.5 7.  5.5]
 \end{lstlisting}
-\begin{alertblock}{Chú ý}
+\begin{alertblock}{Lưu ý}
 Dùng \texttt{\&}, \texttt{|} chứ \textbf{không} dùng \texttt{and}, \texttt{or}. Và \textbf{bắt buộc} có dấu ngoặc quanh mỗi điều kiện.
 \end{alertblock}
 \end{frame}
@@ -565,15 +561,15 @@ Dùng \texttt{\&}, \texttt{|} chứ \textbf{không} dùng \texttt{and}, \texttt{
 \begin{lstlisting}
 a = np.array([10, 20, 30, 40, 50])
 a[[0, 2, 4]]        # [10 30 50]
-a[[4, 4, 0]]        # [50 50 10]  - lap lai duoc, thu tu tuy y
+a[[4, 4, 0]]        # [50 50 10]  - repeats, any order
 \end{lstlisting}
 \textbf{\texttt{np.where} --- "nếu \ldots thì \ldots ngược lại":}
 \begin{lstlisting}
 diem = np.array([8.5, 4.0, 7.0, 3.0])
 
-np.where(diem >= 5, 1, 0)      # [1 0 1 0] - gan nhan Dat/Truot
-np.where(diem >= 5, diem, 0)    # [8.5 0. 7. 0.] - truot -> 0
-np.where(diem >= 5)             # (array([0, 2]),) - vi tri
+np.where(diem >= 5, 1, 0)     # [1 0 1 0] - label pass/fail
+np.where(diem >= 5, diem, 0)  # [8.5 0. 7. 0.] - fail -> 0
+np.where(diem >= 5)           # (array([0, 2]),) - positions
 \end{lstlisting}
 \begin{itemize}
   \item \texttt{np.where} chính là cách viết \texttt{if--else} \textbf{cho cả mảng}, không cần vòng lặp
@@ -586,18 +582,18 @@ np.where(diem >= 5)             # (array([0, 2]),) - vi tri
 \begin{frame}[fragile]{Slicing tạo ra "view", không phải bản sao}
 \begin{lstlisting}
 a = np.array([1, 2, 3, 4, 5])
-b = a[1:4]       # b la VIEW - nhin vao cung vung nho voi a
+b = a[1:4]       # b is a VIEW - same memory as a
 b[0] = 99
 
 print(b)          # [99  3  4]
-print(a)          # [ 1 99  3  4  5]   <-- a CUNG BI DOI!
+print(a)          # [ 1 99  3  4  5]   <-- a CHANGED TOO!
 \end{lstlisting}
 \pause
 \textbf{Muốn có bản sao độc lập $\to$ dùng \texttt{.copy()}:}
 \begin{lstlisting}
 c = a[1:4].copy()
 c[0] = 0
-print(a)          # [ 1 99  3  4  5]   <-- a khong doi
+print(a)          # [ 1 99  3  4  5]   <-- a unchanged
 \end{lstlisting}
 \begin{block}{Vì sao NumPy làm vậy?}
 Để \textbf{tiết kiệm bộ nhớ} --- cắt một mảng 1GB mà phải sao chép thì rất tốn kém.
@@ -623,11 +619,11 @@ print(a)          # [ 1 99  3  4  5]   <-- a khong doi
 \end{center}
 \begin{lstlisting}
 b = a[1:4]
-print(b.base is a)   # True  -> b la view cua a
+print(b.base is a)   # True  -> b is a view of a
 \end{lstlisting}
-\begin{alertblock}{Quy tắc vàng cho người mới}
-Nếu bạn định \textbf{sửa} dữ liệu và \textbf{không} muốn ảnh hưởng mảng gốc $\to$ luôn gọi \texttt{.copy()}.
-\end{alertblock}
+\begin{itemize}
+  \item Muốn sửa dữ liệu mà không ảnh hưởng mảng gốc $\to$ dùng \texttt{.copy()}
+\end{itemize}
 \end{frame}
 
 % =====================================================================
@@ -640,7 +636,7 @@ b = np.array([10, 20, 30, 40])
 
 a + b       # [11 22 33 44]
 b - a       # [ 9 18 27 36]
-a * b       # [ 10  40  90 160]  nhan TUNG PHAN TU
+a * b       # [ 10  40  90 160]  ELEMENT-WISE product
 b / a       # [10. 10. 10. 10.]
 a ** 2      # [ 1  4  9 16]
 b % 3       # [1 2 0 1]
@@ -657,19 +653,19 @@ a > 2       # [False False  True  True]
 \begin{lstlisting}
 a = np.array([1, 4, 9, 16])
 
-np.sqrt(a)      # [1. 2. 3. 4.]      can bac hai
-np.exp(a)       # e^a                 ham mu
-np.log(a)       # ln(a)               logarit tu nhien
-np.abs(-a)      # gia tri tuyet doi
+np.sqrt(a)      # [1. 2. 3. 4.]      square root
+np.exp(a)       # e^a                 exponential
+np.log(a)       # ln(a)               natural log
+np.abs(-a)      # absolute value
 np.round(np.array([1.234, 5.678]), 1)   # [1.2 5.7]
 
 x = np.linspace(0, np.pi, 5)
-np.sin(x)       # ham luong giac
-np.maximum(a, 5)   # [ 5  5  9 16]  so sanh tung phan tu voi 5
+np.sin(x)       # trigonometric functions
+np.maximum(a, 5)   # [ 5  5  9 16]  element-wise max with 5
 \end{lstlisting}
-\begin{block}{Vì sao quan trọng với AI?}
-Các hàm hay gặp trong AI --- sigmoid, tanh, ReLU, softmax (sẽ gặp ở cuối buổi) --- đều được viết chỉ bằng vài hàm trên.
-\end{block}
+\begin{itemize}
+  \item Mọi hàm đều tác động lên \textbf{từng phần tử}, trả về mảng mới cùng hình dạng
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Vector hóa: viết lại vòng lặp cho gọn và nhanh}
@@ -679,10 +675,10 @@ Mảng \texttt{diem} chứa điểm của cả lớp. Cần quy đổi sang than
 \end{block}
 \textbf{Cách viết của người mới --- duyệt từng học sinh một:}
 \begin{lstlisting}
-ket_qua = []                        # danh sach rong
-for i in range(len(diem)):          # duyet tung hoc sinh
-    ket_qua.append(diem[i] * 2 + 1) # tinh roi them vao cuoi
-ket_qua = np.array(ket_qua)         # doi lai thanh mang NumPy
+ket_qua = []                        # empty list
+for i in range(len(diem)):          # loop over students
+    ket_qua.append(diem[i] * 2 + 1) # compute, then append
+ket_qua = np.array(ket_qua)         # back to a NumPy array
 \end{lstlisting}
 \textbf{Cách viết NumPy --- làm một lần cho cả mảng:}
 \begin{lstlisting}
@@ -699,14 +695,14 @@ ket_qua = diem * 2 + 1
 \begin{frame}[fragile]{Broadcasting --- khi hai mảng khác hình dạng}
 \begin{lstlisting}
 a = np.array([1, 2, 3])
-print(a + 10)      # [11 12 13]  - so 10 duoc "phat" ra ca mang
+print(a + 10)      # [11 12 13] - 10 is "broadcast" to all
 
-diem = np.array([[8.0, 7.0, 9.0],     # 3 hoc sinh
-                 [6.0, 8.5, 7.5],     # x 3 mon
+diem = np.array([[8.0, 7.0, 9.0],     # 3 students
+                 [6.0, 8.5, 7.5],     # x 3 subjects
                  [9.0, 9.0, 8.0]])
-he_so = np.array([2, 1, 1])       # Toan he so 2, Ly 1, Hoa 1
+he_so = np.array([2, 1, 1])       # weight per subject
 
-print(diem * he_so)    # moi HANG deu duoc nhan voi he_so
+print(diem * he_so)    # every ROW is multiplied by he_so
 \end{lstlisting}
 \begin{block}{Broadcasting là gì?}
 NumPy tự động "kéo giãn" mảng nhỏ hơn cho khớp hình dạng mảng lớn --- \textbf{không tốn thêm bộ nhớ}, không cần vòng lặp.
@@ -778,29 +774,29 @@ So sánh hình dạng \textbf{từ phải sang trái}. Hai chiều tương thíc
 \hline
 \end{tabular}
 \end{center}
-\begin{lstlisting}
-ValueError: operands could not be broadcast together
-            with shapes (3,4) (3,)
-\end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Ứng dụng broadcasting: chuẩn hóa dữ liệu}
-\textbf{Chuẩn hóa} (normalization): đưa các cột dữ liệu về cùng một thang đo, để cột có giá trị lớn không lấn át cột có giá trị nhỏ.
+\textbf{Chuẩn hóa z-score}: đưa mỗi cột về cùng một thang đo theo công thức
+\[
+  z = \frac{x - \mu}{\sigma}
+\]
+với $x$ là giá trị gốc, $\mu$ là trung bình của cột, $\sigma$ là độ lệch chuẩn của cột.
+Sau chuẩn hóa, mỗi cột có trung bình $0$ và độ lệch chuẩn $1$.
 \begin{lstlisting}
-# X: 100 mau du lieu, moi mau co 4 dac trung (features)
+# X: 100 samples, each with 4 features
 X = rng.normal(50, 10, size=(100, 4))
 
-mean = X.mean(axis=0)   # shape (4,)  - trung binh TUNG COT
-std  = X.std(axis=0)    # shape (4,)  - do lech chuan tung cot
+mean = X.mean(axis=0)   # shape (4,)  - mean of EACH COLUMN
+std  = X.std(axis=0)    # shape (4,)  - std of each column
 
-X_chuan = (X - mean) / std     # broadcasting: (100,4) voi (4,)
+X_chuan = (X - mean) / std     # broadcast (100,4) with (4,)
 
 print(X_chuan.mean(axis=0))    # ~ [0. 0. 0. 0.]
 print(X_chuan.std(axis=0))     # ~ [1. 1. 1. 1.]
 \end{lstlisting}
 \begin{itemize}
-  \item Chỉ \textbf{một dòng} thay cho hai vòng lặp lồng nhau và 400 phép tính thủ công
-  \item Đây gọi là chuẩn hóa \textbf{z-score} --- công thức $z = (x - \mu) / \sigma$
+  \item Một dòng thay cho hai vòng lặp lồng nhau và 400 phép tính
 \end{itemize}
 \end{frame}
 
@@ -862,14 +858,11 @@ a = np.array([3, 1, 4, 1, 5, 9, 2, 6])
 \hline
 \end{tabular}
 \end{center}
-\begin{alertblock}{Mẹo nhớ}
-\texttt{axis=k} nghĩa là "chiều thứ $k$ \textbf{biến mất}". Mảng \texttt{(3,4)} với \texttt{axis=0} $\to$ còn lại \texttt{(4,)}.
-\end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Đố vui: chọn axis nào?}
+\begin{frame}[fragile]{Vận dụng: chọn axis nào?}
 \begin{lstlisting}
-# 4 hoc sinh (hang) x 3 mon: Toan, Ly, Hoa (cot)
+# 4 students (rows) x 3 subjects (columns)
 diem = np.array([[8.0, 7.0, 9.0],
                  [6.0, 8.5, 7.5],
                  [9.0, 9.0, 8.0],
@@ -899,17 +892,17 @@ diem = np.array([[8.0, 7.0, 9.0],
 \end{enumerate}
 \end{frame}
 
-\begin{frame}[fragile]{Mẹo: giữ nguyên số chiều với keepdims}
+\begin{frame}[fragile]{Giữ nguyên số chiều với keepdims}
 \begin{lstlisting}
 tb = diem.mean(axis=1)                  # shape (4,)
 tb = diem.mean(axis=1, keepdims=True)   # shape (4, 1)
 
-print(diem - tb)   # moi diem lech bao nhieu so voi DTB
-                   # cua chinh hoc sinh do
+print(diem - tb)   # deviation of each score from that
+                   # student's own average
 \end{lstlisting}
 \begin{itemize}
-  \item \texttt{keepdims=True} giữ lại chiều vừa bị gộp $\to$ shape \texttt{(4,1)} thay vì \texttt{(4,)}
-  \item Nhờ vậy \texttt{diem - tb} mới broadcasting đúng: mỗi \textbf{hàng} của \texttt{diem} trừ đi đúng giá trị trung bình của hàng đó
+  \item \texttt{keepdims=True} giữ lại chiều vừa bị gộp: shape \texttt{(4,1)} thay vì \texttt{(4,)}
+  \item Nhờ vậy \texttt{diem - tb} broadcasting đúng: mỗi hàng trừ đi trung bình của chính nó
 \end{itemize}
 \end{frame}
 
@@ -920,13 +913,13 @@ print(diem - tb)   # moi diem lech bao nhieu so voi DTB
 \begin{lstlisting}
 a = np.arange(12)          # [0 1 2 ... 11]   shape (12,)
 
-b = a.reshape(3, 4)        # 3 hang, 4 cot
-c = a.reshape(4, 3)        # 4 hang, 3 cot
-d = a.reshape(2, 2, 3)     # mang 3 chieu
-e = a.reshape(3, -1)       # -1 = "tu tinh giup toi" -> (3, 4)
+b = a.reshape(3, 4)        # 3 rows, 4 columns
+c = a.reshape(4, 3)        # 4 rows, 3 columns
+d = a.reshape(2, 2, 3)     # a 3-D array
+e = a.reshape(3, -1)       # -1 = "you figure it out" -> (3,4)
 
-print(b.ravel())          # [0 1 ... 11]  tra ve 1 chieu (view)
-print(b.flatten())         # giong ravel nhung tra ve BAN SAO
+print(b.ravel())           # [0 1 ... 11]  back to 1-D (view)
+print(b.flatten())         # same as ravel but returns a COPY
 \end{lstlisting}
 \begin{itemize}
   \item Số phần tử phải \textbf{không đổi}: $3 \times 4 = 12$ (được), còn $5 \times 3 = 15$ thì không
@@ -936,18 +929,18 @@ print(b.flatten())         # giong ravel nhung tra ve BAN SAO
 
 \begin{frame}[fragile]{Thêm chiều cho mảng}
 \begin{lstlisting}
-v = np.array([1, 2, 3])    # shape (3,) - khong hang, khong cot
+v = np.array([1, 2, 3])    # shape (3,) - neither row nor col
 
-v[:, np.newaxis]    # shape (3, 1)  - vector COT
-v[np.newaxis, :]    # shape (1, 3)  - vector HANG
-v.reshape(-1, 1)    # cach viet khac cho vector cot
+v[:, np.newaxis]    # shape (3, 1)  - COLUMN vector
+v[np.newaxis, :]    # shape (1, 3)  - ROW vector
+v.reshape(-1, 1)    # another way to get a column vector
 
 a = np.array([[1, 2, 3],
               [4, 5, 6]])   # shape (2, 3)
-a.T                 # chuyen vi -> shape (3, 2)  (xem phan sau)
+a.T                 # transpose -> shape (3, 2)
 \end{lstlisting}
-\begin{block}{Điểm dễ nhầm}
-Mảng \texttt{shape (3,)} \textbf{khác} \texttt{shape (3,1)} và \textbf{khác} \texttt{shape (1,3)}. Rất nhiều lỗi broadcasting đến từ chỗ này --- nhớ \texttt{print(x.shape)}!
+\begin{block}{Lưu ý}
+Mảng \texttt{shape (3,)} \textbf{khác} \texttt{shape (3,1)} và \textbf{khác} \texttt{shape (1,3)} --- phần lớn lỗi broadcasting đến từ chỗ này.
 \end{block}
 \end{frame}
 
@@ -956,15 +949,15 @@ Mảng \texttt{shape (3,)} \textbf{khác} \texttt{shape (3,1)} và \textbf{khác
 a = np.array([[1, 2], [3, 4]])
 b = np.array([[5, 6], [7, 8]])
 
-np.concatenate([a, b], axis=0)   # ghep theo HANG -> (4, 2)
-np.concatenate([a, b], axis=1)   # ghep theo COT  -> (2, 4)
+np.concatenate([a, b], axis=0)   # stack ROWS    -> (4, 2)
+np.concatenate([a, b], axis=1)   # stack COLUMNS -> (2, 4)
 np.vstack([a, b])                # vertical   = axis 0
 np.hstack([a, b])                # horizontal = axis 1
-np.stack([a, b])                 # tao chieu MOI  -> (2, 2, 2)
+np.stack([a, b])                 # NEW dimension -> (2, 2, 2)
 
 x = np.arange(10)
-np.split(x, 2)                   # tach lam 2 phan bang nhau
-np.split(x, [3, 7])            # tach tai vi tri 3 va 7
+np.split(x, 2)                   # split into 2 equal parts
+np.split(x, [3, 7])              # split at index 3 and 7
 \end{lstlisting}
 \begin{itemize}
   \item \texttt{np.stack} thêm một chiều mới --- dùng khi gom nhiều ảnh cùng kích thước thành một chồng ảnh
@@ -985,20 +978,20 @@ u = np.array([1, 2, 3])
 v = np.array([4, 5, 6])
 
 np.dot(u, v)           # 32
-(u * v).sum()          # 32 - nhan tung cap roi cong lai
-np.linalg.norm(u)      # 3.74  do dai cua vector u
-np.linalg.norm(u - v)  # 5.20  khoang cach giua u va v
+(u * v).sum()          # 32 - multiply pairs, then sum
+np.linalg.norm(u)      # 3.74 - length of vector u
 \end{lstlisting}
 \begin{itemize}
-  \item \texttt{norm} là \textbf{độ dài} vector --- chính là định lý Pythagore mở rộng:
-        $\sqrt{u_1^2 + u_2^2 + u_3^2} = \sqrt{1 + 4 + 9} \approx 3.74$
-  \item \texttt{norm(u - v)} là \textbf{khoảng cách} giữa hai điểm --- dùng để đo hai dữ liệu giống nhau đến đâu
+  \item \texttt{norm} là \textbf{độ dài} vector: $\sqrt{u_1^2 + u_2^2 + u_3^2} = \sqrt{14} \approx 3.74$
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Nhân ma trận được thực hiện như thế nào?}
-\textbf{Quy tắc:} phần tử ở \textbf{hàng $i$, cột $j$} của kết quả
-$=$ tích vô hướng của \textbf{hàng $i$} (ma trận trái) với \textbf{cột $j$} (ma trận phải).
+Với $C = A \times B$:
+\[
+  C[i, j] \;=\; A[i, :] \cdot B[:, j] \;=\; \sum_{k} A[i, k] \, B[k, j]
+\]
+\centerline{\small hàng $i$ của $A$ nhân vô hướng với cột $j$ của $B$}
 \[
   \begin{pmatrix} \textcolor{npD}{\mathbf{1}} & \textcolor{npD}{\mathbf{2}} \\ 3 & 4 \end{pmatrix}
   \times
@@ -1014,8 +1007,7 @@ $\mathbf{19} = \textcolor{npD}{1}{\times}\textcolor{npWarn}{5} + \textcolor{npD}
 \qquad $50 = 3{\times}6 + 4{\times}8$
 \end{center}
 \begin{block}{Điều kiện về hình dạng}
-\texttt{(m, n) @ (n, p)} $\to$ kết quả \texttt{(m, p)}.
-Số \textbf{cột} của ma trận trái phải bằng số \textbf{hàng} của ma trận phải --- có vậy mới ghép cặp được từng phần tử.
+\texttt{(m, n) @ (n, p)} $\to$ \texttt{(m, p)}: số \textbf{cột} của ma trận trái phải bằng số \textbf{hàng} của ma trận phải.
 \end{block}
 \end{frame}
 
@@ -1026,19 +1018,20 @@ A = np.array([[1, 2],
 B = np.array([[5, 6],
               [7, 8]])
 
-A * B      # [[ 5 12], [21 32]]  nhan TUNG PHAN TU cung vi tri
-A @ B      # [[19 22], [43 50]]  NHAN MA TRAN nhu tren
-np.dot(A, B)     # giong A @ B
-np.matmul(A, B)  # giong A @ B
+A * B      # [[ 5 12], [21 32]]  ELEMENT-WISE product
+A @ B      # [[19 22], [43 50]]  MATRIX product
+np.dot(A, B)     # same as A @ B
+np.matmul(A, B)  # same as A @ B
 \end{lstlisting}
-\begin{alertblock}{Đừng nhầm!}
+\begin{alertblock}{Lưu ý}
 \texttt{*} nhân từng phần tử cùng vị trí (đòi hỏi hai mảng cùng hình dạng).
 \texttt{@} là phép nhân ma trận trong toán học. Hai kết quả hoàn toàn khác nhau.
 \end{alertblock}
 \end{frame}
 
 \begin{frame}{Chuyển vị: đổi hàng thành cột}
-\textbf{Chuyển vị} (transpose) --- lật ma trận qua đường chéo chính: hàng thứ $i$ trở thành cột thứ $i$.
+\textbf{Chuyển vị} (transpose): lật ma trận qua \textbf{đường chéo chính} --- tập hợp các phần tử
+có chỉ số hàng bằng chỉ số cột ($A[0,0], A[1,1], \dots$). Hàng thứ $i$ trở thành cột thứ $i$.
 \[
   A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}_{2 \times 3}
   \qquad
@@ -1048,8 +1041,7 @@ np.matmul(A, B)  # giong A @ B
   \item Phần tử ở vị trí (hàng $i$, cột $j$) chuyển sang vị trí (hàng $j$, cột $i$)
   \item Hình dạng \texttt{(m, n)} trở thành \texttt{(n, m)}
   \item Trong NumPy chỉ cần viết \texttt{A.T} --- và đây là một \textbf{view}, không tốn thêm bộ nhớ
-  \item Hay dùng khi hai mảng "lệch chiều" nhau, ví dụ muốn nhân \texttt{(2,3)} với \texttt{(2,3)}:
-        không nhân được, nhưng \texttt{A @ B.T} thì được
+  \item Khi hai mảng lệch chiều: \texttt{(2,3) @ (2,3)} không hợp lệ, nhưng \texttt{A @ B.T} thì được
 \end{itemize}
 \end{frame}
 
@@ -1075,7 +1067,7 @@ A = np.array([[2, 1], [1, 3]])
 b = np.array([5, 10])
 
 np.linalg.solve(A, b)     # [1. 3.]  -> x = 1, y = 3
-A @ np.array([1, 3])      # [ 5 10]  kiem tra lai: dung!
+A @ np.array([1, 3])      # [ 5 10]  check: correct
 \end{lstlisting}
 \end{frame}
 
@@ -1084,48 +1076,22 @@ A @ np.array([1, 3])      # [ 5 10]  kiem tra lai: dung!
 
 \begin{frame}[fragile]{Ảnh số chính là một mảng NumPy}
 \begin{lstlisting}
-# Anh mau: (cao, rong, 3 kenh RGB), kieu uint8 gia tri 0..255
+# color image: (height, width, 3 RGB channels), uint8 0..255
 img = rng.integers(0, 256, size=(128, 128, 3), dtype=np.uint8)
 
 img.shape          # (128, 128, 3)
-img[0, 0]          # [R G B] cua diem anh goc tren trai
+img[0, 0]          # [R G B] of the top-left pixel
 
-img_gray = img.mean(axis=2)        # anh xam: trung binh 3 kenh
-img_flip = img[:, ::-1, :]         # lat anh trai-phai
-img_crop = img[32:96, 32:96]       # cat vung giua
-img_norm = img.astype(np.float32) / 255.0  # dua ve [0, 1]
+img_gray = img.mean(axis=2)        # grayscale: mean of RGB
+img_flip = img[:, ::-1, :]         # flip left-right
+img_crop = img[32:96, 32:96]       # crop the centre
+img_norm = img.astype(np.float32) / 255.0  # scale to [0, 1]
 
-do_sang = img.mean()               # do sang trung binh
-kenh_do = img[:, :, 0]             # tach rieng kenh do
+do_sang = img.mean()               # average brightness
+kenh_do = img[:, :, 0]             # the red channel alone
 \end{lstlisting}
 \begin{itemize}
   \item Lật ảnh, cắt ảnh, đổi độ sáng --- các thao tác xử lý ảnh quen thuộc --- chỉ là slicing và phép toán trên mảng
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Vài hàm số hay gặp khi học AI}
-\[
-  \mathrm{sigmoid}(x) = \frac{1}{1 + e^{-x}}
-  \qquad
-  \mathrm{ReLU}(x) = \max(0,\; x)
-  \qquad
-  \tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}
-\]
-\begin{lstlisting}
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-def relu(x):
-    return np.maximum(0, x)
-
-x = np.linspace(-5, 5, 11)
-print(np.round(sigmoid(x), 2))  # [0.01 0.02 ... 0.98 0.99]
-print(relu(x))                  # [0. 0. ... 4. 5.]
-\end{lstlisting}
-\begin{itemize}
-  \item \texttt{sigmoid} nén \textbf{mọi} số thực về khoảng $(0, 1)$
-  \item \texttt{ReLU} giữ nguyên số dương, cắt số âm về $0$
-  \item Viết được cho \textbf{cả mảng} chỉ nhờ vector hóa --- không cần vòng lặp
 \end{itemize}
 \end{frame}
 
@@ -1135,11 +1101,11 @@ print(relu(x))                  # [0. 0. ... 4. 5.]
 \]
 \begin{lstlisting}
 def softmax(x):
-    e = np.exp(x - np.max(x))   # tru max de tranh tran so
+    e = np.exp(x - np.max(x))   # subtract max: avoid overflow
     return e / np.sum(e)
 
 diem_so = np.array([2.0, 1.0, 0.1])
-print(softmax(diem_so))        # [0.659 0.242 0.099] - tong = 1
+print(softmax(diem_so))        # [0.659 0.242 0.099] - sums 1
 \end{lstlisting}
 \begin{itemize}
   \item Mọi kết quả đều \textbf{dương} và \textbf{tổng bằng 1} $\to$ đọc được như tỉ lệ phần trăm:
@@ -1156,45 +1122,22 @@ thuc_te  = np.array([27.8, 31.2, 29.0, 32.5])
 
 sai_so = du_bao - thuc_te        # [0.2 -0.2 -1.5 0.5]
 
-# Sai so tuyet doi trung binh (MAE)
-np.mean(np.abs(sai_so))          # 0.6 do
+# mean absolute error (MAE)
+np.mean(np.abs(sai_so))          # 0.6 degrees
 
-# Sai so binh phuong trung binh (MSE) - phat nang sai so lon
+# mean squared error (MSE) - penalises big errors more
 np.mean(sai_so ** 2)             # 0.645
 \end{lstlisting}
 \textbf{Đếm tỉ lệ giống nhau giữa hai dãy:}
 \begin{lstlisting}
-dap_an  = np.array([1, 3, 2, 4, 1])   # dap an dung
-bai_lam = np.array([1, 3, 4, 4, 2])   # bai lam cua hoc sinh
-np.mean(dap_an == bai_lam)            # 0.6 -> lam dung 60%
+dap_an  = np.array([1, 3, 2, 4, 1])   # correct answers
+bai_lam = np.array([1, 3, 4, 4, 2])   # student's answers
+np.mean(dap_an == bai_lam)            # 0.6 -> 60% correct
 \end{lstlisting}
 \end{frame}
 
 % =====================================================================
-\section{Mẹo hay và bảng tra cứu}
-
-\begin{frame}[fragile]{Mẹo giúp code nhanh và sạch}
-\begin{itemize}
-  \item \textbf{Luôn in shape} khi debug: \texttt{print(x.shape, x.dtype)}
-  \item \textbf{Tránh vòng lặp} trên phần tử --- tìm cách viết bằng phép toán mảng
-  \item \textbf{Đừng nối mảng trong vòng lặp} --- mỗi lần \texttt{np.append} là một lần sao chép toàn bộ:
-\end{itemize}
-\begin{lstlisting}
-# CHAM
-kq = np.array([])
-for i in range(10000):
-    kq = np.append(kq, i * 2)
-
-# NHANH: gom vao list roi chuyen mot lan
-kq = np.array([i * 2 for i in range(10000)])
-
-# NHANH NHAT: vector hoa hoan toan
-kq = np.arange(10000) * 2
-\end{lstlisting}
-\begin{itemize}
-  \item Dùng \texttt{float32} thay \texttt{float64} khi dữ liệu rất lớn $\to$ tiết kiệm một nửa bộ nhớ
-\end{itemize}
-\end{frame}
+\section{Bảng tra cứu}
 
 \begin{frame}{Bảng tra cứu nhanh}
 \begin{center}
@@ -1236,59 +1179,51 @@ Sắp xếp                 & \texttt{np.sort(a)}, \texttt{np.argsort(a)} \\
 % =====================================================================
 \section{Thực hành}
 
-\begin{frame}{Notebook thực hành}
-\begin{block}{File: \texttt{numpy\_practice.ipynb}}
-Notebook đi kèm buổi học: 12 phần thực hành bám sát thứ tự bài giảng, 10 bài tập tự làm và lời giải gợi ý ở cuối.
-\end{block}
-\begin{itemize}
-  \item \textbf{Cách 1 --- Google Colab} (khuyến nghị, không cần cài gì):
-  \begin{itemize}
-    \item Vào \texttt{colab.research.google.com} $\to$ Tệp $\to$ Tải notebook lên
-  \end{itemize}
-  \item \textbf{Cách 2 --- máy cá nhân:}
-\end{itemize}
-\begin{center}
-\texttt{pip install numpy jupyter} \\
-\texttt{jupyter notebook numpy\_practice.ipynb}
-\end{center}
-\begin{itemize}
-  \item \textbf{Cách 3 --- VS Code:} mở thẳng file \texttt{.ipynb} (cần extension Python + Jupyter)
-\end{itemize}
-\begin{alertblock}{Quan trọng}
-Hãy \textbf{tự gõ lại} từng dòng code thay vì copy--paste. Gõ tay giúp nhớ cú pháp nhanh hơn nhiều lần.
-\end{alertblock}
-\end{frame}
+\begin{frame}[fragile]{Bài tập tại lớp}
+\begin{lstlisting}
+rng = np.random.default_rng(42)
 
-\begin{frame}{Bài tập tại lớp}
+diem = rng.integers(0, 11, 10)            # exercise 3
+bang_diem = rng.uniform(4, 10, (5, 3))    # exercise 4
+x = rng.normal(50, 15, 20)                # exercise 5
+\end{lstlisting}
 \begin{enumerate}
-  \item Tạo mảng các số chẵn từ 0 đến 20, in ra tổng và trung bình cộng
-  \item Tạo ma trận $3 \times 3$ chứa các số từ 1 đến 9, rồi in ra: hàng thứ hai, cột cuối cùng, và đường chéo chính
-  \item Cho mảng điểm của 10 học sinh, đếm số học sinh đạt (điểm $\ge 5$) và in ra danh sách điểm của những em này
-  \item Tạo ma trận điểm 5 học sinh $\times$ 3 môn. Tính điểm trung bình mỗi học sinh, mỗi môn, và tìm học sinh có điểm trung bình cao nhất
-  \item Chuẩn hóa một mảng số bất kỳ về khoảng $[0, 1]$ theo công thức
+  \item Tạo mảng các số chẵn từ 0 đến 20; in tổng và trung bình cộng
+  \item Tạo ma trận $3 \times 3$ chứa các số 1--9; in hàng thứ hai, cột cuối, đường chéo chính
+  \item Với \texttt{diem}: đếm số học sinh đạt ($\ge 5$) và in ra điểm của những em đó
+  \item Với \texttt{bang\_diem} (5 học sinh $\times$ 3 môn): tính điểm trung bình mỗi học sinh,
+        mỗi môn, và tìm học sinh có trung bình cao nhất
+  \item Với \texttt{x}: chuẩn hóa về khoảng $[0, 1]$ theo công thức
         $x' = \dfrac{x - \min}{\max - \min}$
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Bài tập về nhà}
+\begin{frame}[fragile]{Bài tập về nhà}
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+rng = np.random.default_rng(0)
+du_bao  = rng.uniform(25, 35, 7)
+thuc_te = du_bao + rng.normal(0, 1, 7)
+X   = rng.normal(50, 10, (100, 5))
+img = rng.integers(0, 256, (64, 64, 3), dtype=np.uint8)
+A, B = rng.integers(0, 5, (3, 2)), rng.integers(0, 5, (2, 4))
+\end{lstlisting}
 \begin{enumerate}
-  \item Viết hàm \texttt{sigmoid(x)} và \texttt{relu(x)}, áp dụng lên mảng \texttt{np.linspace(-5, 5, 11)}
-  \item Cho hai mảng \texttt{du\_bao} và \texttt{thuc\_te}, viết hàm tính sai số MAE và MSE (không dùng vòng lặp)
-  \item Tạo ma trận ngẫu nhiên $100 \times 5$, chuẩn hóa z-score theo từng cột, kiểm tra lại trung bình $\approx 0$ và độ lệch chuẩn $\approx 1$
-  \item Tạo "ảnh" ngẫu nhiên kích thước $(64, 64, 3)$ kiểu \texttt{uint8}. Chuyển sang ảnh xám, lật ngang, cắt vùng giữa $32 \times 32$
-  \item Cho hai ma trận $3 \times 2$ và $2 \times 4$, nhân chúng bằng \texttt{@}. Tự nhân tay một phần tử bất kỳ để kiểm tra kết quả
-  \item Viết hệ phương trình $\begin{cases} 3x + 2y = 12 \\ x - y = 1 \end{cases}$ dưới dạng ma trận rồi giải bằng \texttt{np.linalg.solve}
-  \item \textbf{Nâng cao:} viết hàm \texttt{softmax(x)} và kiểm tra tổng các phần tử kết quả luôn bằng 1
+  \item Tính MAE và MSE giữa \texttt{du\_bao} và \texttt{thuc\_te}, không dùng vòng lặp
+  \item Chuẩn hóa z-score từng cột của \texttt{X}; kiểm tra trung bình $\approx 0$, độ lệch chuẩn $\approx 1$
+  \item Với \texttt{img}: chuyển sang ảnh xám, lật ngang, cắt vùng giữa $32 \times 32$
+  \item Tính \texttt{A @ B}; tự kiểm chứng một phần tử bằng \texttt{np.dot}
+  \item Viết hệ $3x + 2y = 12$, $x - y = 1$ dưới dạng ma trận và giải bằng \texttt{np.linalg.solve}
+  \item \textbf{Nâng cao:} viết hàm \texttt{softmax(x)}, kiểm tra tổng kết quả bằng 1
 \end{enumerate}
 \end{frame}
 
 \begin{frame}{Tóm tắt buổi học}
 \begin{itemize}
-  \item \textbf{ndarray} --- mảng nhiều chiều, cùng kiểu, nằm liên tục trong bộ nhớ $\to$ nhanh
-  \item \textbf{Vector hóa} --- tính toán trên cả mảng, không cần vòng lặp
-  \item \textbf{Broadcasting} --- tự động khớp hình dạng giữa các mảng khác kích thước
-  \item \textbf{shape và axis} --- hai khái niệm phải nắm thật chắc; luôn \texttt{print(x.shape)}
-  \item \textbf{View vs copy} --- slicing dùng chung bộ nhớ; muốn độc lập thì \texttt{.copy()}
+  \item \textbf{ndarray} --- mảng nhiều chiều, cùng kiểu, liên tục trong bộ nhớ
+  \item \textbf{Vector hóa} --- tính trên cả mảng, không cần vòng lặp
+  \item \textbf{Broadcasting} --- tự khớp hình dạng giữa các mảng khác kích thước
+  \item \textbf{shape} và \textbf{axis} --- hai khái niệm phải nắm chắc
+  \item \textbf{View} và \textbf{copy} --- slicing dùng chung bộ nhớ
   \item \textbf{@} --- nhân ma trận: hàng nhân cột rồi cộng lại
 \end{itemize}
 \begin{block}{Buổi sau}
